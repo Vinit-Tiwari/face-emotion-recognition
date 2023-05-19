@@ -39,7 +39,7 @@ if not cap.isOpened():
 while True:
     ret, frame = cap.read()
     result = DeepFace.analyze(
-        frame, actions=['emotion'], enforce_detection=False)
+        frame, actions=['emotion','age'], enforce_detection=False)
     print(result)
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -49,7 +49,7 @@ while True:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     font = cv2.FONT_HERSHEY_PLAIN
-    cv2.putText(frame,  result[0]['dominant_emotion'],
+    cv2.putText(frame,  str(result[0]['dominant_emotion'])+', '+str(result[0]['age']),
                 (0, 50), font, 1, (0, 0, 255), 2, cv2.LINE_4)
 
     cv2.imshow('Original video', frame)
